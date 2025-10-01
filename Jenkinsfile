@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     environment {
-        PYTHON_PATH = 'D:\Private File\Anaconda\python.exe'
+        PYTHON_PATH = 'D:\\Private File\\Anaconda\\python.exe'
     }
     
     stages {
