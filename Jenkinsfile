@@ -26,8 +26,8 @@ pipeline {
                 bat """
                     @echo off
                     echo "=== 修复Python313的pip环境 ==="
-                    ${PYTHON_PATH} -m ensurepip --upgrade  
-                    ${PYTHON_PATH} -m pip --version       
+                    "${PYTHON_PATH}" -m ensurepip --upgrade  
+                    "${PYTHON_PATH}" -m pip --version
                 """
             }
         }
@@ -35,21 +35,21 @@ pipeline {
             steps {
                 bat """
                     @echo off
-                    ${PYTHON_PATH} -m pip install --upgrade pip
-                    ${PYTHON_PATH} -m pip install -r requirements.txt
+                    "${PYTHON_PATH}" -m pip install --upgrade pip
+                    "${PYTHON_PATH}" -m pip install -r requirements.txt
                 """
             }
         }
         stage('Lint') {
             steps {
-                bat "${PYTHON_PATH} -m pip install flake8 && ${PYTHON_PATH} -m flake8 app.py tests/"
+                bat "\"${PYTHON_PATH}\" -m pip install flake8 && \"${PYTHON_PATH}\" -m flake8 app.py tests/"
             }
         }
         stage('Test') {
             steps {
                 bat """
-                    ${PYTHON_PATH} -m pip install pytest
-                    ${PYTHON_PATH} -m pytest --cov=app tests/ --cov-report=html
+                    "${PYTHON_PATH}" -m pip install pytest
+                    "${PYTHON_PATH}" -m pytest --cov=app tests/ --cov-report=html
                 """
             }
             post {
@@ -68,15 +68,15 @@ pipeline {
         stage('Build') {
             steps {
                 bat """
-                    ${PYTHON_PATH} -m pip install pyinstaller
-                    ${PYTHON_PATH} -m PyInstaller --onefile app.py
+                    "${PYTHON_PATH}" -m pip install pyinstaller
+                    "${PYTHON_PATH}" -m PyInstaller --onefile app.py
                 """
             }
         }
         stage('Deploy') {
             steps {
                 echo 'Deploying application...'
-                bat "start ${PYTHON_PATH} app.py"  // 启动Flask应用（按需调整）
+                bat "start \"${PYTHON_PATH}\" app.py"  // 启动Flask应用（按需调整）
             }
         }
     }
