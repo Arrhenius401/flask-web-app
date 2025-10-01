@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     environment {
-        PYTHON_PATH = 'D:\\Private File\\Anaconda\\python.exe'
+        PYTHON_PATH = 'D:/Private File/Anaconda/python.exe'
     }
     
     stages {
@@ -11,7 +11,7 @@ pipeline {
                 bat """
                     @echo off
                     echo "=== 验证Python313路径及版本 ==="
-                    ${PYTHON_PATH} --version  // 仅保留此关键验证（成功即证明路径正确）
+                    "${PYTHON_PATH}" --version  // 关键：用双引号包裹变量，处理空格
                     echo "Python路径验证通过！"
                 """
             }
